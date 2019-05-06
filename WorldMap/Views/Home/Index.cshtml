@@ -8,29 +8,7 @@
     <link href="css/styles.css" rel="stylesheet">
   </head>
   <body>
-      <h1>Countries</h1>
-      @if (@Model.Count == 0)
-      {
-        <h3>No countries have been added yet</h3>
-      }
-      <table>
-        <tr>
-          <th>Country Code</th>
-          <th>Name</th>
-          <th>Region</th>
-          <th>Life Expectancy</th>
-          <th>Govt Form</th>
-        </tr>
-      @foreach (var country in Model)
-      {
-        <tr>
-          <td>@country.GetCode()</td>
-          <td>@country.GetName()</td>
-          <td>@country.GetRegion()</td>
-          <td>@country.GetLifeExpectancy()</td>
-          <td>@country.GetGovtForm()</td>
-        </tr>
-      }
-       </table>
+    <a href="/countries">Countries</a><br />
+    <a href="/cities">Cities</a>
   </body>
 </html>

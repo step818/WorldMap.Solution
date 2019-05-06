@@ -45,14 +45,23 @@ namespace WorldMap.Models
     {
       return _population;
     }
+    // public static List<City> SortBy()
+    // {
+    //   MySqlConnection conn = DB.Connection();
+    //   conn.Open();
+    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
+    //   cmd.CommandText = @"select * from city order by (@userInput);";
+    //   MySqlParameter prmName = new MySqlParameter();
+    //   prmName.ParameterName = "@userInput";
 
+    // }
     public static List<City> GetAll()
     {
       List<City> allCities = new List<City> {};     
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = @"SELECT * FROM city order by name, district;";
+      cmd.CommandText = @"SELECT * FROM city order by countrycode, district, name;";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {

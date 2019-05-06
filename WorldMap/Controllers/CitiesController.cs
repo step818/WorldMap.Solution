@@ -4,13 +4,14 @@ using WorldMap.Models;
 
 namespace WorldMap.Controllers
 {
-  public class HomeController : Controller
+  public class CityController : Controller
   {
 
-    [Route("/")]
+    [Route("/cities")]
     public ActionResult Index() 
     {
-      return View();
+      List<City> allCities = City.GetAll();
+      return View(allCities);
     }
   }
 }
