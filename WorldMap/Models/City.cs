@@ -45,16 +45,78 @@ namespace WorldMap.Models
     {
       return _population;
     }
-    // public static List<City> SortBy()
-    // {
-    //   MySqlConnection conn = DB.Connection();
-    //   conn.Open();
-    //   MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-    //   cmd.CommandText = @"select * from city order by (@userInput);";
-    //   MySqlParameter prmName = new MySqlParameter();
-    //   prmName.ParameterName = "@userInput";
 
-    // }
+    public static City GetByName (string byName)
+    {
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"select * from city where byName = @thisName;";
+      MySqlParameter thisName = new MySqlParameter();
+      thisName.ParameterName = "@thisName";
+      thisName.Value = byName;
+      cmd.Parameters.Add(thisName);
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int id = 0;
+      string name = "";
+      string countrycode = "";
+      string district = "";
+      int population = 0;   
+      while (rdr.Read())
+      {
+        id = rdr.GetInt32(0);
+        name = rdr.GetString(1);
+        countrycode = rdr.GetString(2);
+        district = rdr.GetString(3);
+        population = rdr.GetInt32(4);
+
+        City city = new City(id, name, countrycode, district, population); 
+        allCities.Add(city);
+      }
+
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return allCities;
+    }   
+
+    public static List<City> FilterByDistrict()
+    {
+      List<City> allCities = new List<City> {};
+      MySqlConnection conn = DB.Connection();
+      conn.Open();
+      var cmd = conn.CreateCommand() as MySqlCommand;
+      cmd.CommandText = @"select * from city where district = @thisDistrict;";
+      MySqlParameter thisDistrict = new MySqlParameter();
+      thisDistrict.ParameterName = "@thisDistrict";
+      thisDistrict.Value = thisDistrict;
+      cmd.Parameters.Add(thisDistrict);
+      
+      var rdr = cmd.ExecuteReader() as MySqlDataReader;
+      int id = 0;
+      string name = "";
+      string countrycode = "";
+      string district = "";
+      int population = 0;
+      while(rdr.Read())
+      {
+        id = rdr.GetInt32(0);
+        name = rdr.GetString(1);
+        countrycode = rdr.GetString(2);
+        district = rdr.GetString(3);
+        population = rdr.GetInt32(4);
+        City city = new City(id, name, countrycode, district, population); 
+        allCities.Add(city);
+      }
+      conn.Close();
+      if (conn != null)
+      {
+        conn.Dispose();
+      }
+      return allCities;
+    }
     public static List<City> GetAll()
     {
       List<City> allCities = new List<City> {};     
