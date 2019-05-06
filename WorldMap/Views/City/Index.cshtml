@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title></title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="js/scripts.js"></script>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/styles.css" rel="stylesheet">
+  </head>
+  <body>
+      <h1>Cities</h1>
+      @if (@Model.Count == 0)
+      {
+        <h3>No cities have been added yet</h3>
+      }
+      <table>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Country Code</th>
+          <th>District</th>
+          <th>Population</th>
+        </tr>
+      @foreach (var city in Model)
+      {
+        <tr>
+          <td>@city.GetId()</td>
+          <td>@city.GetName()</td>
+          <td>@city.GetCountryCode()</td>
+          <td>@city.GetDistrict()</td>
+          <td>@city.GetPopulation()</td>
+        </tr>
+      }
+       </table>
+  </body>
+</html>

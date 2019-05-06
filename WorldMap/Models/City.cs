@@ -52,7 +52,7 @@ namespace WorldMap.Models
       MySqlConnection conn = DB.Connection();
       conn.Open();
       MySqlCommand cmd = conn.CreateCommand() as MySqlCommand;
-      cmd.CommandText = "@SELECT * FROM city;";
+      cmd.CommandText = @"SELECT * FROM city order by name, district;";
       MySqlDataReader rdr = cmd.ExecuteReader() as MySqlDataReader;
       while (rdr.Read())
       {
